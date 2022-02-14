@@ -1,7 +1,12 @@
 h1 {
+  max-width: fit-content;
   text-align: center;
   font-size: 6rem;
-  color: #fff;
+  color: #c75dc1;
+  cursor: pointer;
+  &:hover {
+    color: darken(#c75dc1, 20%);
+  }
 }
 
 .bg {
