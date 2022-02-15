@@ -12,8 +12,11 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  revealMonster() {
-
+  revealMonster(seed:string) {
+    if(seed.length > 10) {
+      seed = seed.substring(0, 10);
+    }
+    return "https://app.pixelencounter.com/api/basic/svgmonsters/" + seed;
   }
 
 }

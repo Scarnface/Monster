@@ -3,9 +3,9 @@
     <h2>Lets See What You Found!</h2>
     <form class="create-monster__form">
       <img class="create-monster__form--image" src="../../assets/images/barcode-blank.webp" alt="A Blank Barcode"/>
-      <input class="create-monster__form--input" type="text" placeholder="Enter Barcode Here">
+      <input #seed class="create-monster__form--input" type="text" placeholder="Enter Barcode Here">
       <div class="create-monster__form--button-wrapper">
-        <button class="create-monster__form--button" (click)="revealMonster()" routerLink="/reveal">REVEAL</button>
+        <button class="create-monster__form--button" (click)="revealMonster(seed.value)" routerLink="/reveal">REVEAL</button>
       </div>
     </form>
   </div>
