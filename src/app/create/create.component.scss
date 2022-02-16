@@ -7,6 +7,22 @@ h2 {
   color: #94a403;
 }
 
+#error {
+  position: absolute;
+  top: 30%;
+  border: 5px solid #ee0000;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 3rem;
+  line-height: 0.5;
+  color: #ee0000;
+  background-color: #9d9d9d;
+  &:empty
+  {
+    display:none;
+  }
+}
+
 .create-monster {
   width: 70%;
   display: flex;
