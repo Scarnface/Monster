@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
 
-  monsterUrl = '';
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -19,6 +17,6 @@ export class CreateComponent implements OnInit {
     if(seed.length > 10) {
       seed = seed.substring(0, 10);
     }
-    this.router.navigate(['/reveal', {seed: seed}]);
+    return this.router.navigate(['/reveal', {seed: seed}]);
   }
 }
