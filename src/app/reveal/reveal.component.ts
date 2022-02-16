@@ -30,11 +30,17 @@ export class RevealComponent implements OnInit {
   }
 
   genMonsterStats() {
-    // Generate the monsters fill type from the first character
+    // Generate the monsters fill type from the first character.
     if(this.seed.slice(0, 1) == 0) {
       this.fill = 5;
     } else {
       this.fill = Math.floor(this.seed.slice(0, 1) / 2);
     }
+
+    // Generate the stats based on the last six characters.
+    let l = this.seed.length;
+    this.attack = this.seed.slice(l-6, l-5) + this.seed.slice(l-5, l-4);
+    this.defense = this.seed.slice(l-4, l-3) + this.seed.slice(l-3, l-2);
+    this.initiative = this.seed.slice(l-2, l-1) + this.seed.slice(l-1, l);
   }
 }
