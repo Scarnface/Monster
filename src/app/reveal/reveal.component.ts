@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import { NameService } from '../services/name.service';
 
 @Component({
   selector: 'app-reveal',
@@ -8,11 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RevealComponent implements OnInit {
 
+  name: string = '';
+  attack = 0
+  defense = 0
+  initiative = 0
   fill = 0
   seed = this.route.snapshot.params['seed']
   monsterUrl = "https://app.pixelencounter.com/api/basic/svgmonsters/";
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private route : ActivatedRoute, private nameService: NameService) {
+    this.nameService.getName()
+      .subscribe((resp:any) => {
+        this.name = resp.fullName;
+      });
+  }
 
   ngOnInit() {
     this.genMonsterStats();

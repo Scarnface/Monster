@@ -16,3 +16,49 @@
   justify-content: center;
   align-items: center;
 }
+
+h1 {
+  max-width: fit-content;
+  text-align: center;
+  font-size: 6rem;
+  color: #c75dc1;
+  cursor: pointer;
+  &:hover {
+    color: darken(#c75dc1, 20%);
+  }
+}
+
+h2 {
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  line-height: 1;
+  text-align: center;
+  color: #94a403;
+}
+
+p {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
+  color: #9d9d9d;
+}
+
+.button {
+  height: 4rem;
+  margin-top: 1rem;
+  border: 5px solid #94a403;
+  border-radius: 5px;
+  padding: 0 1rem 0 1rem;
+  font-size: 3rem;
+  line-height: 0;
+  color: #c75dc1;
+  background-color: #8200fd;
+  &:hover {
+    border: 5px solid #c75dc1;
+    color: #8200fd;
+    background-color: #94a403;
+  }
+}

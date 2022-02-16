@@ -1,13 +1,5 @@
-h2 {
-  width: 100%;
-  margin-bottom: 1rem;
-  font-size: 3rem;
-  line-height: 1;
-  text-align: center;
-  color: #94a403;
-}
-
 #error {
+  width: 50%;
   position: absolute;
   top: 30%;
   border: 5px solid #ee0000;
@@ -61,21 +53,6 @@ h2 {
       display: flex;
       justify-content: center;
       margin-bottom: 1rem;
-    }
-    &--button {
-      height: 4rem;
-      border: 5px solid #94a403;
-      border-radius: 5px;
-      padding: 0 1rem 0 1rem;
-      font-size: 3rem;
-      line-height: 0;
-      color: #c75dc1;
-      background-color: #8200fd;
-      &:hover {
-        border: 5px solid #c75dc1;
-        color: #8200fd;
-        background-color: #94a403;
-      }
     }
   }
 }
