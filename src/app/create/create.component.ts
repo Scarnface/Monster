@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+  monsterUrl = '';
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -16,7 +19,6 @@ export class CreateComponent implements OnInit {
     if(seed.length > 10) {
       seed = seed.substring(0, 10);
     }
-    return "https://app.pixelencounter.com/api/basic/svgmonsters/" + seed;
+    this.router.navigate(['/reveal', {seed: seed}]);
   }
-
 }

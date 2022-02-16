@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reveal',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RevealComponent implements OnInit {
 
-  constructor() { }
+  monsterUrl = "https://app.pixelencounter.com/api/basic/svgmonsters/";
 
-  ngOnInit(): void {
+  constructor(private route : ActivatedRoute) { }
+
+  ngOnInit() {
+    this.monsterUrl += this.route.snapshot.params['seed'];
   }
-
 }
