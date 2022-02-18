@@ -1,24 +1,22 @@
-<div class="container">
-  <div class="create-monster">
-    <h2>Lets See What You Found!</h2>
-    <form class="create-monster__form">
-      <img class="create-monster__form--image"
-           src="../../assets/images/barcode-blank.png"
-           alt="A Blank Barcode"
-      />
-      <input [(ngModel)]="seed"
-             name="seed"
-             class="create-monster__form--input"
-             type="text"
-             placeholder="Enter Barcode Here"
-      >
-      <p id="error">{{ error }}</p>
-      <div class="create-monster__form--button-wrapper">
-        <button type="button"
-                class="button"
-                (click)="revealMonster(seed)"
-        >REVEAL</button>
-      </div>
-    </form>
-  </div>
+<div class="create-monster">
+  <h2>Lets See What You Found!</h2>
+  <form class="create-monster__form">
+    <img class="create-monster__form--image"
+         src="../../assets/images/barcode-blank.png"
+         alt="A Blank Barcode"
+    />
+    <input [(ngModel)]="seed"
+           name="seed"
+           class="create-monster__form--input"
+           type="text"
+           placeholder="Enter Barcode Here"
+    >
+    <p id="error">{{ error }}</p>
+    <div class="create-monster__form--button-wrapper">
+      <button type="button"
+              class="button"
+              (click)="revealMonster(seed)"
+      >REVEAL</button>
+    </div>
+  </form>
 </div>

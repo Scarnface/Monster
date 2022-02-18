@@ -1,0 +1,33 @@
+.bbg {
+  background-image: url("../../assets/images/bbg.png");
+  width: 70vw;
+  height: 70vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 5px solid #c75dc1;
+  border-radius: 5px;
+}
+
+.players {
+  display: flex;
+  font-size: 2rem;
+  text-align: center;
+  color: #9d9d9d;
+  &__p1 {
+    flex: 1;
+    &--span {
+      color: #ee0000;
+    }
+  }
+  &__vs {
+    flex: 1;
+    color: #facf03;
+  }
+  &__cpu {
+    flex: 1;
+    &--span {
+      color: #0038ee;
+    }
+  }
+}

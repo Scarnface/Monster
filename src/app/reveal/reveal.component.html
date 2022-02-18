@@ -1,14 +1,12 @@
-<div class="container">
-  <div class="monster">
-    <h2>You found {{ name }}</h2>
-    <div class="monster__card">
-      <img class="monster__card--image" src="{{ monsterUrl }}" alt="Your Monster">
-      <div class="monster__card--stats">
-        <h3>Attack: {{ attack }}</h3>
-        <h3>Defense: {{ defense }}</h3>
-        <h3>Initiative: {{ initiative }}</h3>
-      </div>
+<div class="monster">
+  <h2>You found {{ name }}</h2>
+  <div class="monster__card">
+    <img class="monster__card--image" src="{{ monsterUrl }}" alt="Your Monster">
+    <div class="monster__card--stats">
+      <h3>Attack: {{ attack }}</h3>
+      <h3>Defense: {{ defense }}</h3>
+      <h3>Initiative: {{ initiative }}</h3>
     </div>
-    <button class="button monster--button" routerLink="/create">FIGHT!</button>
   </div>
+  <button class="button monster--button" routerLink="/battle">FIGHT!</button>
 </div>
