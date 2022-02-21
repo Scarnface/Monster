@@ -16,20 +16,24 @@
 .players {
   display: flex;
   font-size: 2rem;
-  text-align: center;
   color: #9d9d9d;
+  user-select: none;
   &__p1 {
     flex: 1;
+    text-align: left;
+    padding-left: 1rem;
     &--span {
       color: #ee0000;
     }
   }
   &__vs {
-    flex: 1;
+    text-align: center;
     color: #facf03;
   }
   &__cpu {
     flex: 1;
+    text-align: right;
+    padding-right: 1rem;
     &--span {
       color: #0038ee;
     }
