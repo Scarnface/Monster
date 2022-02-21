@@ -51,7 +51,7 @@ export class RevealComponent implements OnInit {
     this.monster.initiative = seed.slice(l-2, l-1) + seed.slice(l-1, l);
   }
 
-  fight() {
+  toBattle() {
     // Set the seed data to be shared.
     this.data = this.monster;
     this.sharingService.setData(this.data);

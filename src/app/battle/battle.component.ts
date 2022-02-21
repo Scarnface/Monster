@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharingService } from '../services/sharing.service';
 
 @Component({
@@ -12,9 +13,8 @@ export class BattleComponent implements OnInit {
   monster:any = {};
   cpu: any = {};
 
-  turn = false;
+  playerHasInitiative = false;
   round = 1;
-  knockedOut = false;
 
   p1Data = 'test';
   cpuData = 'test';
@@ -44,18 +44,70 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  constructor(private sharingService:SharingService) { }
+  constructor(private router: Router, private sharingService:SharingService) { }
 
   ngOnInit() {
+    // Load player monster
     this.monster = this.sharingService.getData();
 
+    // Check iteration and load appropriate enemy.
     if(this.round === 1) {
       this.cpu = this.enemies.first;
+    } else if (this.round === 2) {
+      this.cpu = this.enemies.second;
+    } else if (this.round === 3) {
+      this.cpu = this.enemies.third;
     }
+
+    // Check who goes first.
+    if(this.checkInit()) {
+      this.playerHasInitiative = true;
+    }
+
+    this.p1Data = 'Your Initiative: ' +  this.monster.initiative;
+    this.cpuData = 'Enemy Initiative: ' + this.cpu.initiative;
   }
 
   battleStep() {
+    // Check initiative, assign attack defender, display relevant stats and fight a round.
+    if(this.playerHasInitiative) {
+      this.p1Data = 'Your Attack: ' +  this.monster.attack;
+      this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
+      this.combat(this.monster, this.cpu)
+      this.playerHasInitiative = false;
+    } else {
+      this.p1Data = 'Your Defense: ' +  this.monster.defense;
+      this.cpuData = 'Enemy Attack: ' + this.cpu.attack;
+      this.combat(this.cpu, this.monster)
+      this.playerHasInitiative = true;
+    }
 
+    // Check for win or recurse.
+    if(!this.checkVictory()) {
+      this.battleStep();
+    }
+  }
+
+  checkInit() {
+    return this.monster.initiative > this.cpu.initiative;
+  }
+
+  combat(attacker:any, defender:any) {
+    defender.defense -= attacker.attack;
+  }
+
+  checkStatus(monster: any) {
+    return monster.defense <= 0;
+  }
+
+  checkVictory() {
+    if(this.checkStatus(this.cpu)) {
+      return this.router.navigate(['/victory']);
+    } else if(this.checkStatus(this.monster)) {
+      return this.router.navigate(['/defeat']);
+    } else {
+      return false
+    }
   }
 
 }
