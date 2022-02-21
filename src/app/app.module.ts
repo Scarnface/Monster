@@ -11,6 +11,8 @@ import { CreateComponent } from './create/create.component';
 import { RevealComponent } from './reveal/reveal.component';
 import { BattleComponent } from './battle/battle.component';
 
+import { SharingService } from './services/sharing.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,7 @@ import { BattleComponent } from './battle/battle.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ SharingService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

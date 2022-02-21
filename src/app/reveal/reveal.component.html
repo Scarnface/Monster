@@ -1,12 +1,12 @@
 <div class="monster">
-  <h2>You found {{ name }}</h2>
+  <h2>You found {{ monster.name }}</h2>
   <div class="monster__card">
-    <img class="monster__card--image" src="{{ monsterUrl }}" alt="Your Monster">
+    <img class="monster__card--image" src="{{ monster.monsterUrl }}" alt="Your Monster">
     <div class="monster__card--stats">
-      <h3>Attack: {{ attack }}</h3>
-      <h3>Defense: {{ defense }}</h3>
-      <h3>Initiative: {{ initiative }}</h3>
+      <h3>Attack: {{ monster.attack }}</h3>
+      <h3>Defense: {{ monster.defense }}</h3>
+      <h3>Initiative: {{ monster.initiative }}</h3>
     </div>
   </div>
-  <button class="button monster--button" routerLink="/battle">FIGHT!</button>
+  <button class="button monster--button" (click)="fight()">FIGHT!</button>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharingService } from '../services/sharing.service';
 
 @Component({
   selector: 'app-battle',
@@ -7,16 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BattleComponent implements OnInit {
 
-  turn = false
-  round = 1
-  knockedOut = false
-
-  name: string = 'placeholder';
-  url: string = 'https://app.pixelencounter.com/api/basic/svgmonsters/55515591?fillType=5';
-  attack = 0
-  defense = 0
-  initiative = 0
+  data:any = {};
+  monster:any = {};
   cpu: any = {};
+
+  turn = false;
+  round = 1;
+  knockedOut = false;
 
   enemies = {
     first: {
@@ -42,12 +40,13 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private sharingService:SharingService) { }
 
   ngOnInit() {
+    this.monster = this.sharingService.getData();
+
     if(this.round === 1) {
       this.cpu = this.enemies.first;
-      console.log(this.cpu);
     }
   }
 

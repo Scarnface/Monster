@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Router } from '@angular/router';
+import { SharingService } from '../services/sharing.service';
 import { NameService } from '../services/name.service';
 
 @Component({
@@ -9,38 +10,52 @@ import { NameService } from '../services/name.service';
 })
 export class RevealComponent implements OnInit {
 
-  name: string = '';
-  attack = 0
-  defense = 0
-  initiative = 0
-  fill = 0
-  seed = this.route.snapshot.params['seed']
-  monsterUrl = "https://app.pixelencounter.com/api/basic/svgmonsters/";
+  data:any = {};
+  monster:any = {
+    name: '',
+    attack: 0,
+    defense: 0,
+    initiative: 0,
+    monsterUrl: 'https://app.pixelencounter.com/api/basic/svgmonsters/',
+  };
+  fill = 0;
 
-  constructor(private route : ActivatedRoute, private nameService: NameService) {
+
+  constructor(private router: Router, private sharingService:SharingService, private nameService: NameService) {
     this.nameService.getName()
       .subscribe((resp:any) => {
-        this.name = resp.fullName;
+        this.monster.name = resp.fullName;
       });
   }
 
   ngOnInit() {
-    this.genMonsterStats();
-    this.monsterUrl += (this.seed + "?fillType=" + this.fill);
+    this.data = this.sharingService.getData();
+    this.genMonsterStats(this.data.seed);
   }
 
-  genMonsterStats() {
+  genMonsterStats(seed:any) {
     // Generate the monsters fill type from the first character.
-    if(this.seed.slice(0, 1) == 0) {
+    if(seed.slice(0, 1) == 0) {
       this.fill = 5;
     } else {
-      this.fill = Math.floor(this.seed.slice(0, 1) / 2);
+      this.fill = Math.floor(seed.slice(0, 1) / 2);
     }
 
+    // Generate the API url based on the barcode.
+    this.monster.monsterUrl += (seed + "?fillType=" + this.fill);
+
     // Generate the stats based on the last six characters.
-    let l = this.seed.length;
-    this.attack = this.seed.slice(l-6, l-5) + this.seed.slice(l-5, l-4);
-    this.defense = this.seed.slice(l-4, l-3) + this.seed.slice(l-3, l-2);
-    this.initiative = this.seed.slice(l-2, l-1) + this.seed.slice(l-1, l);
+    let l = seed.length;
+    this.monster.attack = seed.slice(l-6, l-5) + seed.slice(l-5, l-4);
+    this.monster.defense = seed.slice(l-4, l-3) + seed.slice(l-3, l-2);
+    this.monster.initiative = seed.slice(l-2, l-1) + seed.slice(l-1, l);
+  }
+
+  fight() {
+    // Set the seed data to be shared.
+    this.data = this.monster;
+    this.sharingService.setData(this.data);
+    // Navigate to next page.
+    return this.router.navigate(['/battle']);
   }
 }
