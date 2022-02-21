@@ -9,5 +9,13 @@
       <img class="sprites__p1" src="{{ monster.monsterUrl }}" alt="Your Monster"/>
       <img class="sprites__cpu" src="{{ cpu.url }}" alt="Enemy Monster" />
     </div>
+    <div class="battle-data">
+      <h3 class="battle-data__p1-data">{{ p1Data }}</h3>
+      <button type="button"
+              class="button"
+              (click)="battleStep()"
+      >{{ battleBtnText }}</button>
+      <h3 class="battle-data__cpu-data">{{ cpuData }}</h3>
+    </div>
   </div>
 </div>

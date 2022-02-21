@@ -16,6 +16,10 @@ export class BattleComponent implements OnInit {
   round = 1;
   knockedOut = false;
 
+  p1Data = 'test';
+  cpuData = 'test';
+  battleBtnText = 'FIGHT!';
+
   enemies = {
     first: {
       name: "Bokrug",
@@ -36,7 +40,7 @@ export class BattleComponent implements OnInit {
       attack: 40,
       defense: 80,
       initiative: 80,
-      url: 'https://app.pixelencounter.com/api/basic/svgmonsters/55515591?fillType=5',
+      url: 'https://app.pixelencounter.com/api/basic/svgmonsters/45643564?fillType=5',
     }
   }
 
@@ -48,6 +52,10 @@ export class BattleComponent implements OnInit {
     if(this.round === 1) {
       this.cpu = this.enemies.first;
     }
+  }
+
+  battleStep() {
+
   }
 
 }

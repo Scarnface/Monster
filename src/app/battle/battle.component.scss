@@ -54,3 +54,24 @@
     height: auto;
   }
 }
+
+.battle-data {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 1rem;
+  font-size: 2rem;
+  color: #9d9d9d;
+  user-select: none;
+  &__p1-data {
+    flex: 1;
+    padding-left: 1rem;
+    text-align: left;
+  }
+  &__cpu-data {
+    flex: 1;
+    padding-right: 1rem;
+    text-align: right;
+  }
+}
