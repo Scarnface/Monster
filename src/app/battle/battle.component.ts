@@ -12,6 +12,7 @@ export class BattleComponent implements OnInit {
   knockedOut = false
 
   name: string = 'placeholder';
+  url: string = 'https://app.pixelencounter.com/api/basic/svgmonsters/55515591?fillType=5';
   attack = 0
   defense = 0
   initiative = 0

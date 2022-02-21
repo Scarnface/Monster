@@ -1,7 +1,13 @@
 <div class="bbg">
-  <div class="players">
-    <h3 class="players__p1"><span class="players__p1--span">P1</span> {{ name }}</h3>
-    <h3 class="players__vs"><span class="players__vs--span">Vs</span></h3>
-    <h3 class="players__cpu"><span class="players__cpu--span">CPU</span> {{ cpu.name }}</h3>
+  <div class="bbg--inner">
+    <div class="players">
+      <h3 class="players__p1"><span class="players__p1--span">P1</span> {{ name }}</h3>
+      <h3 class="players__vs"><span class="players__vs--span">Vs</span></h3>
+      <h3 class="players__cpu"><span class="players__cpu--span">CPU</span> {{ cpu.name }}</h3>
+    </div>
+    <div class="sprites">
+      <img class="sprites__p1" src="{{ url }}" alt="Your Monster"/>
+      <img class="sprites__cpu" src="{{ cpu.url }}" alt="Enemy Monster" />
+    </div>
   </div>
 </div>
