@@ -64,12 +64,13 @@ export class BattleComponent implements OnInit {
       this.playerHasInitiative = true;
     }
 
+    // Load correct text for battle screen.
     this.p1Data = 'Your Initiative: ' +  this.monster.initiative;
     this.cpuData = 'Enemy Initiative: ' + this.cpu.initiative;
   }
 
   battleStep() {
-    // Check initiative, assign attack defender, display relevant stats and fight a round.
+    // Check initiative, assign attack/defender, display relevant stats and fight a round.
     if(this.playerHasInitiative) {
       this.p1Data = 'Your Attack: ' +  this.monster.attack;
       this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
@@ -102,12 +103,15 @@ export class BattleComponent implements OnInit {
 
   checkVictory() {
     if(this.checkStatus(this.cpu)) {
-      return this.router.navigate(['/victory']);
+      this.data.victory = true;
+      this.sharingService.setData(this.data);
+      return this.router.navigate(['/outcome']);
     } else if(this.checkStatus(this.monster)) {
-      return this.router.navigate(['/defeat']);
+      this.data.victory = false;
+      this.sharingService.setData(this.data);
+      return this.router.navigate(['/outcome']);
     } else {
       return false
     }
   }
-
 }

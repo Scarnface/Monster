@@ -15,7 +15,7 @@ export class CreateComponent implements OnInit {
 
   constructor(private router: Router, private sharingService:SharingService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   revealMonster(seed:string) {

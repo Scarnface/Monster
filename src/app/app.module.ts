@@ -10,8 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { RevealComponent } from './reveal/reveal.component';
 import { BattleComponent } from './battle/battle.component';
-
+import { OutcomeComponent } from './outcome/outcome.component';
 import { SharingService } from './services/sharing.service';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SharingService } from './services/sharing.service';
     CreateComponent,
     RevealComponent,
     BattleComponent,
+    OutcomeComponent,
   ],
   imports: [
     BrowserModule,
