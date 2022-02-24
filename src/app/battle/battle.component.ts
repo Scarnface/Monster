@@ -69,23 +69,29 @@ export class BattleComponent implements OnInit {
     this.cpuData = 'Enemy Initiative: ' + this.cpu.initiative;
   }
 
-  battleStep() {
+  async battleStep() {
     // Check initiative, assign attack/defender, display relevant stats and fight a round.
     if(this.playerHasInitiative) {
       this.p1Data = 'Your Attack: ' +  this.monster.attack;
       this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
+      await this.timer(2000);
       this.combat(this.monster, this.cpu)
+      this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
+      await this.timer(2000);
       this.playerHasInitiative = false;
     } else {
       this.p1Data = 'Your Defense: ' +  this.monster.defense;
       this.cpuData = 'Enemy Attack: ' + this.cpu.attack;
+      await this.timer(2000);
       this.combat(this.cpu, this.monster)
+      this.p1Data = 'Your Defense: ' +  this.monster.defense;
+      await this.timer(2000);
       this.playerHasInitiative = true;
     }
 
     // Check for win or recurse.
     if(!this.checkVictory()) {
-      this.battleStep();
+      await this.battleStep();
     }
   }
 
@@ -97,7 +103,7 @@ export class BattleComponent implements OnInit {
     defender.defense -= attacker.attack;
   }
 
-  checkStatus(monster: any) {
+  checkStatus(monster:any) {
     return monster.defense <= 0;
   }
 
@@ -114,4 +120,7 @@ export class BattleComponent implements OnInit {
       return false
     }
   }
+
+  // Returns a Promise that resolves after "ms" Milliseconds
+  timer:any = (ms:any) => new Promise(res => setTimeout(res, ms))
 }
