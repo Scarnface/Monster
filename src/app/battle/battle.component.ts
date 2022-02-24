@@ -13,13 +13,21 @@ export class BattleComponent implements OnInit {
   monster:any = {};
   cpu: any = {};
 
+  // Game/Screen variables.
   playerHasInitiative = false;
   round = 1;
-
-  p1Data = 'test';
-  cpuData = 'test';
   battleBtnText = 'FIGHT!';
+  battleBtnClass = '';
 
+  // Player variables.
+  p1Data = 'test';
+  p1Color = '';
+  p1Class = '';
+  cpuData = 'test';
+  cpuColor = '';
+  cpuClass = '';
+
+  // Object containing enemies.
   enemies = {
     first: {
       name: "Bokrug",
@@ -61,30 +69,55 @@ export class BattleComponent implements OnInit {
 
     // Check who goes first.
     if(this.checkInit()) {
+      this.p1Color = '#6183fc';
+      this.p1Class = 'blink';
       this.playerHasInitiative = true;
+    } else {
+      this.cpuColor = '#6183fc';
+      this.cpuClass = 'blink';
     }
 
     // Load correct text for battle screen.
-    this.p1Data = 'Your Initiative: ' +  this.monster.initiative;
-    this.cpuData = 'Enemy Initiative: ' + this.cpu.initiative;
+    this.p1Data = 'Initiative: ' +  this.monster.initiative;
+    this.cpuData = 'Initiative: ' + this.cpu.initiative;
   }
 
   async battleStep() {
+    // Reset styling.
+    this.p1Class = '';
+    this.cpuClass = '';
+    this.p1Color = '#9d9d9d';
+    this.cpuColor = '#9d9d9d';
+
     // Check initiative, assign attack/defender, display relevant stats and fight a round.
     if(this.playerHasInitiative) {
-      this.p1Data = 'Your Attack: ' +  this.monster.attack;
-      this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
+      // Display relevant stats and apply styling to highlight combat direction.
+      this.p1Data = 'Attack: ' +  this.monster.attack;
+      this.cpuData = 'Defense: ' + this.cpu.defense;
+      this.p1Class = 'blink';
+      this.battleBtnText = '>>>';
+      this.battleBtnClass = 'blink';
+      // Delay allowing user to read stats.
       await this.timer(2000);
+      // Fight a round of combat.
       this.combat(this.monster, this.cpu)
-      this.cpuData = 'Enemy Defense: ' + this.cpu.defense;
+      // Apply Styling to show damage dealt.
+      this.cpuColor = '#ee0000';
+      this.cpuData = 'Defense: ' + this.cpu.defense;
+      // Delay allowing user to read stats.
       await this.timer(2000);
+      // Switch active player.
       this.playerHasInitiative = false;
     } else {
-      this.p1Data = 'Your Defense: ' +  this.monster.defense;
-      this.cpuData = 'Enemy Attack: ' + this.cpu.attack;
+      this.p1Data = 'Defense: ' +  this.monster.defense;
+      this.cpuData = 'Attack: ' + this.cpu.attack;
+      this.cpuClass = 'blink';
+      this.battleBtnText = '<<<';
+      this.battleBtnClass = 'blink';
       await this.timer(2000);
       this.combat(this.cpu, this.monster)
-      this.p1Data = 'Your Defense: ' +  this.monster.defense;
+      this.p1Color = '#ee0000';
+      this.p1Data = 'Defense: ' +  this.monster.defense;
       await this.timer(2000);
       this.playerHasInitiative = true;
     }
@@ -95,18 +128,22 @@ export class BattleComponent implements OnInit {
     }
   }
 
+  // Find who has the highest initiative value.
   checkInit() {
     return this.monster.initiative > this.cpu.initiative;
   }
 
+  // Subtract attacker attack from defenders defense.
   combat(attacker:any, defender:any) {
     defender.defense -= attacker.attack;
   }
 
+  // See if a player's monster has dropped below 0HP.
   checkStatus(monster:any) {
     return monster.defense <= 0;
   }
 
+  // Save the data and route according to battle outcome.
   checkVictory() {
     if(this.checkStatus(this.cpu)) {
       this.data.victory = true;
@@ -121,6 +158,6 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  // Returns a Promise that resolves after "ms" Milliseconds
+  // Returns a Promise that resolves after "ms" Milliseconds. Used to add a delay for UI purposes.
   timer:any = (ms:any) => new Promise(res => setTimeout(res, ms))
 }
