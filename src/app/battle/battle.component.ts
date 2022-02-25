@@ -18,14 +18,18 @@ export class BattleComponent implements OnInit {
   round = 1;
   battleBtnText = 'FIGHT!';
   battleBtnClass = '';
+  attackClass = '';
+  attackShow = false;
 
   // Player variables.
-  p1Data = 'test';
+  p1Data = '';
   p1Color = '';
   p1Class = '';
-  cpuData = 'test';
+  p1SpriteClass = '';
+  cpuData = '';
   cpuColor = '';
   cpuClass = '';
+  cpuSpriteClass = '';
 
   // Object containing enemies.
   enemies = {
@@ -69,11 +73,11 @@ export class BattleComponent implements OnInit {
 
     // Check who goes first.
     if(this.checkInit()) {
-      this.p1Color = '#6183fc';
+      this.p1Color = '#26a100';
       this.p1Class = 'blink';
       this.playerHasInitiative = true;
     } else {
-      this.cpuColor = '#6183fc';
+      this.cpuColor = '#26a100';
       this.cpuClass = 'blink';
     }
 
@@ -89,37 +93,12 @@ export class BattleComponent implements OnInit {
     this.p1Color = '#9d9d9d';
     this.cpuColor = '#9d9d9d';
 
-    // Check initiative, assign attack/defender, display relevant stats and fight a round.
+    // Check initiative, assign attack/defender.
     if(this.playerHasInitiative) {
-      // Display relevant stats and apply styling to highlight combat direction.
-      this.p1Data = 'Attack: ' +  this.monster.attack;
-      this.cpuData = 'Defense: ' + this.cpu.defense;
-      this.p1Class = 'blink';
-      this.battleBtnText = '>>>';
-      this.battleBtnClass = 'blink';
-      // Delay allowing user to read stats.
-      await this.timer(2000);
       // Fight a round of combat.
-      this.combat(this.monster, this.cpu)
-      // Apply Styling to show damage dealt.
-      this.cpuColor = '#ee0000';
-      this.cpuData = 'Defense: ' + this.cpu.defense;
-      // Delay allowing user to read stats.
-      await this.timer(2000);
-      // Switch active player.
-      this.playerHasInitiative = false;
+      await this.combat('PvsC');
     } else {
-      this.p1Data = 'Defense: ' +  this.monster.defense;
-      this.cpuData = 'Attack: ' + this.cpu.attack;
-      this.cpuClass = 'blink';
-      this.battleBtnText = '<<<';
-      this.battleBtnClass = 'blink';
-      await this.timer(2000);
-      this.combat(this.cpu, this.monster)
-      this.p1Color = '#ee0000';
-      this.p1Data = 'Defense: ' +  this.monster.defense;
-      await this.timer(2000);
-      this.playerHasInitiative = true;
+      await this.combat('CvsP');
     }
 
     // Check for win or recurse.
@@ -134,8 +113,41 @@ export class BattleComponent implements OnInit {
   }
 
   // Subtract attacker attack from defenders defense.
-  combat(attacker:any, defender:any) {
-    defender.defense -= attacker.attack;
+  async combat(direction:any) {
+    if(direction === 'PvsC') {
+      // Display relevant stats and apply styling to highlight combat direction.
+      this.p1Data = 'Attack: ' +  this.monster.attack;
+      this.cpuData = 'Defense: ' + this.cpu.defense;
+      this.battleBtnText = '>>>';
+      this.battleBtnClass = 'blink';
+      // Delay allowing user to read stats.
+      await this.timer(2000);
+      // Run fireball animation.
+      this.attackShow = true;
+      this.attackClass = 'slide-right';
+      // Apply Styling to show damage dealt.
+      this.cpu.defense -= this.monster.attack;
+      this.cpuColor = '#ee0000';
+      this.cpuData = 'Defense: ' + this.cpu.defense;
+      // Delay allowing user to read stats.
+      await this.timer(2000);
+      // Switch active player.
+      this.playerHasInitiative = false;
+    } else {
+      this.p1Data = 'Defense: ' +  this.monster.defense;
+      this.cpuData = 'Attack: ' + this.cpu.attack;
+      this.battleBtnText = '<<<';
+      this.battleBtnClass = 'blink';
+      await this.timer(2000);
+      this.attackShow = true;
+      this.attackClass = 'slide-left';
+      this.monster.defense -= this.cpu.attack;
+      this.p1Color = '#ee0000';
+      this.p1Data = 'Defense: ' +  this.monster.defense;
+      await this.timer(2000);
+      this.playerHasInitiative = true;
+    }
+    this.attackShow = false;
   }
 
   // See if a player's monster has dropped below 0HP.

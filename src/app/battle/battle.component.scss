@@ -55,6 +55,12 @@
   }
 }
 
+.attack {
+  position: absolute;
+  top: 32.5%;
+  transform: scale(0.15);
+}
+
 .battle-data {
   width: 100%;
   display: flex;
