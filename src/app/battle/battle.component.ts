@@ -63,6 +63,10 @@ export class BattleComponent implements OnInit {
     this.monster = this.sharingService.getData();
 
     // Check iteration and load appropriate enemy.
+    if(this.data.round !== undefined) {
+      this.round = this.data.round;
+    }
+
     if(this.round === 1) {
       this.cpu = this.enemies.first;
     } else if (this.round === 2) {
@@ -161,13 +165,15 @@ export class BattleComponent implements OnInit {
       this.data.victory = true;
       this.sharingService.setData(this.data);
       return this.router.navigate(['/outcome']);
-    } else if(this.checkStatus(this.monster)) {
+    }
+
+    if(this.checkStatus(this.monster)) {
       this.data.victory = false;
       this.sharingService.setData(this.data);
       return this.router.navigate(['/outcome']);
-    } else {
-      return false
     }
+
+    return false
   }
 
   // Returns a Promise that resolves after "ms" Milliseconds. Used to add a delay for UI purposes.
