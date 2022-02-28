@@ -106,7 +106,7 @@ export class BattleComponent implements OnInit {
     }
 
     // Check for win or recurse.
-    if(!this.checkVictory()) {
+    if(!await this.checkVictory()) {
       await this.battleStep();
     }
   }
@@ -160,10 +160,11 @@ export class BattleComponent implements OnInit {
   }
 
   // Save the data and route according to battle outcome.
-  checkVictory() {
+  async checkVictory() {
     if(this.checkStatus(this.cpu)) {
+      this.cpuSpriteClass = 'shrink';
+      await this.timer(2000);
       if(this.round <= 2) {
-        console.log(this.round);
         this.monster.round = this.round + 1;
         this.data = this.monster;
         this.sharingService.setData(this.data);
@@ -176,6 +177,8 @@ export class BattleComponent implements OnInit {
     }
 
     if(this.checkStatus(this.monster)) {
+      this.p1SpriteClass = 'shrink';
+      await this.timer(2000);
       this.data.victory = false;
       this.sharingService.setData(this.data);
       return this.router.navigate(['/outcome']);
@@ -187,6 +190,7 @@ export class BattleComponent implements OnInit {
   // Returns a Promise that resolves after "ms" Milliseconds. Used to add a delay for UI purposes.
   timer:any = (ms:any) => new Promise(res => setTimeout(res, ms))
 
+  // Reset the page with the next CPU opponent.
   reloadComponent() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
