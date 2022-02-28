@@ -1,3 +1,21 @@
+#messages {
+  width: 25%;
+  position: absolute;
+  top: 30%;
+  left: 37.5%;
+  border: 5px solid #94a403;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 2rem;
+  color: #c75dc1;
+  background-color: #9d9d9d;
+  box-shadow: 10px 10px 10px #000;
+  &:empty
+  {
+    display:none;
+  }
+}
+
 .bbg {
   background-image: url("../../assets/images/bbg.png");
   width: 70vw;

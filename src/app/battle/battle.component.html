@@ -5,6 +5,7 @@
       <h3 class="players__vs"><span class="players__vs--span">Vs</span></h3>
       <h3 class="players__cpu"><span class="players__cpu--span">CPU</span> {{ cpu.name }}</h3>
     </div>
+    <p id="messages">{{ messages }}</p>
     <div class="sprites">
       <img [ngClass]="p1SpriteClass" class="sprites__p1" src="{{ monster.monsterUrl }}" alt="Your Monster"/>
       <img [ngClass]="cpuSpriteClass" class="sprites__cpu" src="{{ cpu.url }}" alt="Enemy Monster" />

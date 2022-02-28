@@ -16,6 +16,7 @@ export class BattleComponent implements OnInit {
   // Game/Screen variables.
   playerHasInitiative = false;
   round = 1;
+  messages = '';
   battleBtnText = 'FIGHT!';
   battleBtnClass = '';
   attackClass = '';
@@ -59,6 +60,7 @@ export class BattleComponent implements OnInit {
   constructor(private router: Router, private sharingService:SharingService) { }
 
   ngOnInit() {
+
     // Load player monster
     this.monster = this.sharingService.getData();
 
@@ -74,6 +76,9 @@ export class BattleComponent implements OnInit {
     } else if (this.round === 3) {
       this.cpu = this.enemies.third;
     }
+
+    // Load round message
+    this.messages = 'Round ' + this.round + '! Press Fight To Begin';
 
     // Check who goes first.
     if(this.checkInit()) {
@@ -96,6 +101,7 @@ export class BattleComponent implements OnInit {
     this.cpuClass = '';
     this.p1Color = '#9d9d9d';
     this.cpuColor = '#9d9d9d';
+    this.messages = '';
 
     // Check initiative, assign attack/defender.
     if(this.playerHasInitiative) {
