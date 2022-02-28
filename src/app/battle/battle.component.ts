@@ -63,8 +63,8 @@ export class BattleComponent implements OnInit {
     this.monster = this.sharingService.getData();
 
     // Check iteration and load appropriate enemy.
-    if(this.data.round !== undefined) {
-      this.round = this.data.round;
+    if(this.monster.round !== undefined) {
+      this.round = this.monster.round;
     }
 
     if(this.round === 1) {
@@ -162,9 +162,17 @@ export class BattleComponent implements OnInit {
   // Save the data and route according to battle outcome.
   checkVictory() {
     if(this.checkStatus(this.cpu)) {
-      this.data.victory = true;
-      this.sharingService.setData(this.data);
-      return this.router.navigate(['/outcome']);
+      if(this.round <= 2) {
+        console.log(this.round);
+        this.monster.round = this.round + 1;
+        this.data = this.monster;
+        this.sharingService.setData(this.data);
+        return this.reloadComponent();
+      } else {
+        this.data.victory = true;
+        this.sharingService.setData(this.data);
+        return this.router.navigate(['/outcome']);
+      }
     }
 
     if(this.checkStatus(this.monster)) {
@@ -178,4 +186,10 @@ export class BattleComponent implements OnInit {
 
   // Returns a Promise that resolves after "ms" Milliseconds. Used to add a delay for UI purposes.
   timer:any = (ms:any) => new Promise(res => setTimeout(res, ms))
+
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    return this.router.navigate(['/battle']);
+  }
 }
